@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعين مريومتي ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* رسالة مريومتي */
+        .hero-message {
+            text-align: center;
+            z-index: 100;
+            margin-bottom: 40px;
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        .hero-message h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px #ff4d6d, 0 0 30px #ff4d6d, 0 0 50px #ff4d6d;
+        }
+
+        .hero-message p {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-top: 10px;
+        }
+
+        /* حاوية الصور */
+        .photo-gallery {
+            display: flex;
+            gap: 25px;
+            z-index: 10;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .photo-gallery img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.1) translateY(-15px);
+            border-color: #ff4d6d;
+        }
+
+        /* النجوم والقلوب */
+        .particle {
+            position: absolute;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        #music-hint {
+            position: fixed;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: #fff;
+            background: rgba(255, 77, 109, 0.4);
+            padding: 10px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body onclick="playMusic()">
+
+    <div class="hero-message">
+        <h1>مريومتي ❤️</h1>
+        <p>إنتي النجمة اللي منورة دنيتي كلها</p>
+    </div>
+
+    <div class="photo-gallery">
+        <img src="18d6c840-b69f-404c-b6e3-cfa4eb654d6a.JPG" alt="صورة 1">
+        <img src="422d2480-af4b-4a4b-9cce-687c3235497d.JPG" alt="صورة 2">
+    </div>
+
+    <div id="music-hint">دوس في أي مكان عشان تسمع الأغنية 🎵</div>
+
+    <audio id="bgMusic" loop>
+        <source src="IMG_2953.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Music ready after click"));
+            document.getElementById('music-hint').style.display = 'none';
+        }
+
+        function createParticles() {
+            const symbols = ['⭐', '❤️', '✨', '💖'];
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                
+                const isHeart = particle.innerHTML === '❤️' || particle.innerHTML === '💖';
+                particle.style.color = isHeart ? '#FF4D6D' : '#FFD700';
+                
+                const duration = Math.random() * 3 + 4;
+                particle.style.animation = `fall ${duration}s linear forwards`;
+                
+                document.body.appendChild(particle);
+                setTimeout(() => { particle.remove(); }, duration * 1000);
+            }, 300);
+        }
+        createParticles();
+    </script>
+</body>
+</html>
